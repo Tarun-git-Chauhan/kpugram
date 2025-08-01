@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KPUgram+ | Profile</title>
+  <link rel="stylesheet" href="../CSS/stylesheet.css" />
+</head>
+<body>
+<!-- 🔝 HEADER -->
+<header class="header">
+  <div class="header-left">
+    <img src="../images/Logo1.png" alt="KPUgram+ Logo" class="logo" onclick="goToHome()" style="cursor:pointer;"/>
+  </div>
+  <div class="header-right">
+    <div class="username" id="headerUsername" onclick="goToProfile()">@username</div>
+    <div class="streak-badge">🔥 Login Streak: <span id="streakCount">0</span></div>
+  </div>
+</header>
+
+<!-- 👤 PROFILE SECTION -->
+<main class="profile">
+  <div class="center-container">
+    <div class="profile-header">
+      <div class="profile-picture-wrapper">
+        <img id="profileImage" class="profile-img" alt="Profile Picture" />
+      </div>
+      <div class="profile-info">
+        <h2 class="full-name" id="fullName">Your Full Name</h2>
+        <p class="handle" id="handle">@username</p>
+        <p class="bio"></p>
+      </div>
+    </div>
+
+    <hr style="width: 100%; border: none; border-top: 1px solid #dbdbdb; margin: 20px 0;" />
+
+    <h3 class="section-heading">📸 Your Posts</h3>
+    <div class="post-grid" id="postGrid">
+      <!-- Posts will be loaded here -->
+    </div>
+  </div>
+</main>
+
+<!-- 🔻 FOOTER -->
+<footer class="nav-bar">
+  <button onclick="goToHome()" title="Home">🏠</button>
+  <button onclick="goToUpload()" title="Upload">➕</button>
+  <button onclick="goToConfess()" title="Confess">✏️</button>
+  <button onclick="goToProfile()" title="Profile">👤</button>
+</footer>
+
+<!-- 📜 Scripts -->
+<script src="../JavaScript/script2.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const username = localStorage.getItem('username') || 'guest';
+    const profilePic = localStorage.getItem('profilePicture') || 'https://via.placeholder.com/150';
+    const streak = localStorage.getItem('loginStreak') || '0';
+
+    document.getElementById('headerUsername').textContent = '@' + username;
+    document.getElementById('handle').textContent = '@' + username;
+    document.getElementById('profileImage').src = profilePic;
+    document.getElementById('streakCount').textContent = streak;
+    document.getElementById('fullName').textContent = username.charAt(0).toUpperCase() + username.slice(1);
+  });
+</script>
+</body>
+</html>

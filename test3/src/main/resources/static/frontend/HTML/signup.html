@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPUgram+ | Sign Up</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Create an Account</h2>
+    <form id="signupForm">
+        <input type="text" placeholder="Username" name="name" required>
+        <input type="password" placeholder="Password" name="password" required>
+        <input type="text" placeholder="Bio (optional)" name="bio">
+        <input type="email" placeholder="Email" name="email" required>
+
+        <div class="profile-header">
+            <div class="profile-picture-wrapper">
+                <label for="profilePicUpload">
+                    <img id="profileImage" class="profile-img" src="https://via.placeholder.com/150" alt="Profile Picture" title="Click to change" />
+                    <input type="file" id="profilePicUpload" accept="image/*" style="display: none;" />
+                </label>
+            </div>
+        </div>
+
+        <button type="submit">Sign Up</button>
+    </form>
+</div>
+
+<script src="../JavaScript/script.js"></script>
+</body>
+</html>

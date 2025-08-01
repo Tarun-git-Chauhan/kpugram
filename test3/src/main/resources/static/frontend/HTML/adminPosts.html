@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post Moderation - Admin | KPUgram+</title>
+    <link rel="stylesheet" href="../CSS/adminPosts.css" />
+</head>
+<body>
+<header class="header">
+    <img src="../images/Logo1.png" alt="KPUgram+ Logo" class="logo" onclick="goToHome()" />
+<!--    <div class="username">Post Moderation 🧹</div>-->
+    <div class="admin-header-links">
+        <span class="username">Post Moderation 🧹</span>
+        <button class="nav-btn" onclick="goToUserDashboard()">🧑‍💼 User Management</button>
+    </div>
+
+</header>
+
+<main class="center-container">
+    <h2>🧾 All Posts (Admin View)</h2>
+    <table id="postTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Content</th>
+            <th>Image</th>
+            <th>User</th>
+            <th>Time</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- JS will inject posts here -->
+        </tbody>
+    </table>
+</main>
+
+<script src="../JavaScript/adminPosts.js"></script>
+</body>
+</html>

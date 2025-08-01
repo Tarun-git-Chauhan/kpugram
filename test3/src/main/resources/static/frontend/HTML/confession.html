@@ -1,0 +1,213 @@
+<!--
+&lt;!&ndash;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KPUgram+ | Confess</title>
+  <link rel="stylesheet" href="../CSS/stylesheet.css" />
+</head>
+<body>
+
+&lt;!&ndash; 🔝 Header &ndash;&gt;
+<header class="header">
+  <img src="../images/Logo1.png" alt="KPUgram+ Logo" class="logo" onclick="goToHome()" style="cursor:pointer;">
+  <div class="username" id="headerUsername" onclick="goToProfile()">@username</div>
+
+</header>
+
+&lt;!&ndash; 💬 Confession Section &ndash;&gt;
+<main class="confess-section">
+  <div class="center-container">
+    <h2 class="confess-title">💬 Share a Confession</h2>
+    <p class="confess-tagline">Your secrets, your voice — 100% anonymous.</p>
+
+    &lt;!&ndash; Confession Form &ndash;&gt;
+    <form class="confess-form">
+      <textarea
+              name="confession"
+              placeholder="What's on your mind?"
+              required
+      ></textarea>
+      <button type="submit" class="post-button">Submit</button>
+    </form>
+
+    &lt;!&ndash; Rules &ndash;&gt;
+    <section class="confession-rules">
+      <h3>🚨 Reminder</h3>
+      <ul>
+        <li>No bullying or hate speech</li>
+        <li>Stay kind and anonymous</li>
+        <li>Violations will be removed</li>
+      </ul>
+    </section>
+
+    &lt;!&ndash; Recent Confessions Feed &ndash;&gt;
+    <section class="confession-wall">
+      <h3>📢 Recent Confessions</h3>
+      <div class="confession-feed">
+        &lt;!&ndash; JS will inject all boxes here &ndash;&gt;
+      </div>
+    </section>
+  </div>
+</main>
+
+&lt;!&ndash; 🔻 Footer Nav &ndash;&gt;
+<footer class="nav-bar">
+  <button onclick="goToHome()">🏠</button>
+  <button onclick="goToUpload()">➕</button>
+  <button onclick="goToConfess()">✏️</button>
+  <button onclick="goToProfile()">👤</button>
+</footer>
+
+&lt;!&ndash; 🔗 Scripts &ndash;&gt;
+<script src="../JavaScript/script2.js"></script>
+<script src="../JavaScript/confession.js"></script>
+
+</body>
+</html>
+&ndash;&gt;
+
+
+&lt;!&ndash;Tarun new one&ndash;&gt;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KPUgram+ | Confess</title>
+  <link rel="stylesheet" href="../CSS/stylesheet.css" />
+</head>
+<body>
+
+&lt;!&ndash; 🔝 Header &ndash;&gt;
+<header class="header">
+  <img src="../images/Logo1.png" alt="KPUgram+ Logo" class="logo" onclick="goToHome()" style="cursor:pointer;">
+  <div class="username" id="headerUsername" onclick="goToProfile()">@username</div>
+</header>
+
+&lt;!&ndash; 💬 Confession Section &ndash;&gt;
+<main class="confess-section">
+  <div class="center-container">
+    <h2 class="confess-title">💬 Share a Confession</h2>
+    <p class="confess-tagline">Your secrets, your voice — 100% anonymous.</p>
+
+    &lt;!&ndash; Confession Form &ndash;&gt;
+    <form class="confess-form">
+      <textarea
+              name="confession"
+              placeholder="What's on your mind?"
+              required
+      ></textarea>
+      <button type="submit" class="post-button">Submit</button>
+    </form>
+
+    &lt;!&ndash; Rules &ndash;&gt;
+    <section class="confession-rules">
+      <h3>🚨 Reminder</h3>
+      <ul>
+        <li>No bullying or hate speech</li>
+        <li>Stay kind and anonymous</li>
+        <li>Violations will be removed</li>
+      </ul>
+    </section>
+
+    &lt;!&ndash; Recent Confessions Feed &ndash;&gt;
+    <section class="confession-wall">
+      <h3>📢 Recent Confessions</h3>
+      <div class="confession-feed">
+        &lt;!&ndash; JS will inject all boxes here &ndash;&gt;
+      </div>
+    </section>
+  </div>
+</main>
+
+&lt;!&ndash; 🔻 Footer Nav &ndash;&gt;
+<footer class="nav-bar">
+  <button onclick="goToHome()">🏠</button>
+  <button onclick="goToUpload()">➕</button>
+  <button onclick="goToConfess()">✏️</button>
+  <button onclick="goToProfile()">👤</button>
+</footer>
+
+&lt;!&ndash; 🔗 Scripts &ndash;&gt;
+<script src="../JavaScript/script2.js"></script>
+<script src="../JavaScript/confession.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const username = localStorage.getItem("username") || "username";
+    const headerUsername = document.getElementById("headerUsername");
+    if (headerUsername) headerUsername.textContent = "@" + username;
+  });
+</script>
+
+</body>
+</html>
+
+-->
+
+
+
+
+<!--last try-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KPUgram+ | Confess</title>
+  <link rel="stylesheet" href="../CSS/stylesheet.css" />
+</head>
+<body>
+
+<!-- 🔝 Header -->
+<header class="header">
+  <img src="../images/Logo1.png" alt="KPUgram+ Logo" class="logo" onclick="goToHome()" style="cursor:pointer;">
+  <div class="username" id="headerUsername" onclick="goToProfile()">@username</div>
+</header>
+
+<!-- 💬 Confession Section -->
+<main class="confess-section">
+  <div class="center-container">
+    <h2 class="confess-title">💬 Share a Confession</h2>
+    <p class="confess-tagline">Your secrets, your voice — 100% anonymous.</p>
+
+    <!-- Confession Form -->
+    <form class="confess-form">
+      <textarea name="confession" placeholder="What's on your mind?" required></textarea>
+      <button type="submit" class="post-button">Submit</button>
+    </form>
+
+    <!-- Rules -->
+    <section class="confession-rules">
+      <h3>🚨 Reminder</h3>
+      <ul>
+        <li>No bullying or hate speech</li>
+        <li>Stay kind and anonymous</li>
+        <li>Violations will be removed</li>
+      </ul>
+    </section>
+
+    <!-- Recent Confessions Feed -->
+    <section class="confession-wall">
+      <h3>📢 Recent Confessions</h3>
+      <div class="confession-feed"></div>
+    </section>
+  </div>
+</main>
+
+<!-- 🔻 Footer -->
+<footer class="nav-bar">
+  <button onclick="goToHome()">🏠</button>
+  <button onclick="goToUpload()">➕</button>
+  <button onclick="goToConfess()">✏️</button>
+  <button onclick="goToProfile()">👤</button>
+</footer>
+
+<script src="../JavaScript/script2.js"></script>
+<script src="../JavaScript/confession.js"></script>
+</body>
+</html>

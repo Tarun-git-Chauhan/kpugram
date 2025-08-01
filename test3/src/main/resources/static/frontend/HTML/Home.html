@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KPUgram+ Home</title>
+  <link rel="stylesheet" href="../CSS/stylesheet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body style="font-family: 'Inter', sans-serif;">
+
+<!-- 🔝 Header -->
+<header class="header">
+  <img src="../images/Logo1.png" alt="KPUgram+ Logo" class="logo" onclick="goToHome()" style="cursor:pointer;" />
+<!--  <div class="username" id="headerUsername" onclick="goToProfile()">@username</div>-->
+  <a href="../HTML/profile.html" id="userDisplay">@loading...</a>
+
+</header>
+
+<!-- 📰 Main Feed -->
+<main class="feed" id="feed">
+  <!-- Posts will be dynamically inserted here -->
+</main>
+
+<!-- 🚀 Bottom Navigation -->
+<footer class="nav-bar">
+  <button onclick="goToHome()">🏠</button>
+  <button onclick="goToUpload()">➕</button>
+  <button onclick="goToConfess()">✏️</button>
+  <button onclick="goToProfile()">👤</button>
+</footer>
+
+<!-- 🔗 Scripts -->
+<script src="../JavaScript/script2.js"></script>
+<script src="../JavaScript/upload.js"></script>
+</body>
+</html>

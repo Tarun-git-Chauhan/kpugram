@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Post | KPUgram+</title>
+  <link rel="stylesheet" href="../CSS/stylesheet.css" />
+  <link rel="stylesheet" href="../CSS/upload.css" />
+</head>
+<body>
+<!-- 🔝 HEADER -->
+<header class="header">
+  <img src="../images/Logo1.png" alt="KPUgram+ Logo" class="logo" onclick="goToHome()" style="cursor:pointer;"/>
+  <div class="username" id="headerUsername" onclick="goToProfile()">@username</div>
+</header>
+
+<!-- 📤 UPLOAD FORM -->
+<main class="upload-container">
+  <h2 class="upload-heading">📤 Create New Post</h2>
+
+  <div class="upload-card">
+    <!-- Image Upload -->
+    <input type="file" id="imageUpload" accept="image/*" style="display: none;" />
+    <label for="imageUpload" class="custom-file-upload">📷 Choose an image</label>
+
+    <!-- Caption -->
+    <textarea id="captionInput" placeholder="Write a caption... "></textarea>
+
+    <!-- Submit -->
+    <button class="post-button" onclick="sharePost()">Share Post</button>
+  </div>
+
+  <!-- 👀 Preview Output -->
+  <section id="postPreview" class="post" style="display: none;">
+    <img id="outputImage" src="" alt="Post Image" />
+    <div class="caption" id="outputCaption"></div>
+  </section>
+</main>
+
+<!-- 🔻 NAVIGATION FOOTER -->
+<footer class="nav-bar">
+  <button onclick="goToHome()" title="Home">🏠</button>
+  <button onclick="goToUpload()" title="Upload">➕</button>
+  <button onclick="goToConfess()" title="Confess">✏️</button>
+  <button onclick="goToProfile()" title="Profile">👤</button>
+</footer>
+
+<!-- 📜 SCRIPTS -->
+<script src="../JavaScript/script2.js"></script>
+<script src="../JavaScript/upload.js"></script>
+</body>
+</html>
