@@ -1,15 +1,13 @@
 package com.kpugram.test3.services;
-/*
-This service does 3 key things:
-Converts User -> UserDTO (safe for frontend)
-Registers new users
-Logs in users
-*
 
-
-The service layer holds all the logic for registering and logging in users.
-It also converts sensitive User data into safe UserDTOs before sending any response.
-* */
+/**
+ * UserService handles all user-related business logic, including:
+ *   - Registering new users
+ *   - Authenticating users during login
+ *   - Tracking login counts
+ *   - Converting User entities to safe DTOs
+ *   - Fetching full user profiles
+ */
 
 import com.kpugram.test3.dto.PostDTO;
 import com.kpugram.test3.dto.UserDTO;
@@ -25,14 +23,21 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // lets convert User Entity to DTO
-    public UserDTO convertToDTO(User user){
+    /**
+     * Converts a User entity into a UserDTO for safe frontend exposure.
+     * This ensures no sensitive fields like password are exposed.
+     *
+     * @param user The User entity to convert
+     * @return UserDTO containing public user data
+     */
+    public UserDTO convertToDTO(User user) {
         return UserDTO.builder()
                 .id(user.getId())
                 .name(user.getName())
@@ -44,52 +49,54 @@ public class UserService {
                 .build();
     }
 
-
-    // Lets register the new User like a sign up
-    public UserDTO registerUser(User user){
-        /*// We are hashing the password as well
+    /**
+     * Registers a new user in the system.
+     * Hashes the password and initializes login count.
+     * Preserves admin flag if explicitly set.
+     *
+     * @param user User object containing registration data
+     * @return UserDTO after successful registration
+     */
+    public UserDTO registerUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setLoginCount(0);
-        user.setAdmin(user.isAdmin()); // Explicitly carry over admin flag
+
+        if (!user.isAdmin()) {
+            user.setAdmin(false); // fallback if admin not explicitly set
+        }
+
         User savedUser = userRepository.save(user);
-
-        return convertToDTO(savedUser);*/
-
-
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setLoginCount(0);
-
-            // ✅ preserve the admin flag if provided
-            if (user.isAdmin() == false) {
-                user.setAdmin(false); // fallback if not set
-            }
-//        if (user.getProfilePicture() == null || user.getProfilePicture().isEmpty()) {
-//            user.setProfilePicture("http://localhost:8080/images/blank.png");
-//        }
-            User savedUser = userRepository.save(user);
-            return convertToDTO(savedUser);
-
+        return convertToDTO(savedUser);
     }
 
-    // login use by email and verify password
-    public Optional<User> login(String email, String password){
+    /**
+     * Logs in a user by verifying their email and password.
+     * If successful, increments login count and returns the authenticated user.
+     *
+     * @param email    User's login email
+     * @param password Raw password input
+     * @return Optional containing the authenticated user or empty if failed
+     */
+    public Optional<User> login(String email, String password) {
         Optional<User> user = userRepository.findByEmail(email);
-        if(user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())){
-////            return Optional.of(user.get());
-//            return user;
-
+        if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
             User loggedInUser = user.get();
-//            loggedInUser.setLoginCount(loggedInUser.getLoginCount() + 1); //  Increase login streak
             Integer currentCount = loggedInUser.getLoginCount() == null ? 0 : loggedInUser.getLoginCount();
             loggedInUser.setLoginCount(currentCount + 1);
-            userRepository.save(loggedInUser); //  Save updated login count
+            userRepository.save(loggedInUser); // Save updated login count
             return Optional.of(loggedInUser);
+        } else {
+            return Optional.empty();
         }
-        else return Optional.empty();
     }
-//    Whenever a user logs in successfully, increase loginCount by 1:
 
-    // Get full user profile with posts
+    /**
+     * Retrieves a full user profile, including the user's posts.
+     * Used on the profile page to show public and anonymous posts.
+     *
+     * @param userId ID of the user to fetch
+     * @return UserProfileDTO containing full user details and list of PostDTOs
+     */
     public UserProfileDTO getUserProfile(Integer userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isEmpty()) {
@@ -98,7 +105,6 @@ public class UserService {
 
         User user = userOptional.get();
 
-        // Fetch all posts from the user (assumes getPosts() is mapped in User class)
         List<PostDTO> postDTOs = user.getPosts().stream()
                 .map(post -> PostDTO.builder()
                         .id(post.getId())
@@ -122,8 +128,4 @@ public class UserService {
                 .posts(postDTOs)
                 .build();
     }
-
-
-
-
 }

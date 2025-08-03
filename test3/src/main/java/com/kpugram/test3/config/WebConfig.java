@@ -1,27 +1,32 @@
-// here we will do the config which solve the problem of not working the fetch
-// in the borwser but working into the postman
+// WebConfig.java
+// Configuration class to resolve CORS issues, particularly when fetch requests
+// work in Postman but fail in the browser due to cross-origin restrictions.
 
 package com.kpugram.test3.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
+@Configuration // Marks this class as a configuration class for Spring Boot
 public class WebConfig {
 
-    @Bean
+    @Bean // Registers this method's return object as a bean in the Spring context
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
+
+            // Adds CORS mappings to allow frontend requests from a different origin
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:63342")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*")
-                        .allowCredentials(true);
+                registry.addMapping("/**") // Applies CORS configuration to all API endpoints
+                        .allowedOrigins("http://localhost:63342") // Allows frontend served from this origin (e.g., Live Server)
+                        .allowedMethods("GET", "POST", "PUT", "DELETE") // Specifies allowed HTTP methods
+                        .allowedHeaders("*") // Allows all request headers
+                        .allowCredentials(true); // Allows sending of credentials such as cookies
             }
+
         };
     }
 }

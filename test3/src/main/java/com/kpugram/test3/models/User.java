@@ -1,63 +1,71 @@
 package com.kpugram.test3.models;
 
 import jakarta.persistence.*;
-/* @Entity comes from this Jakarata Persistence, which used for the mapping
-* Java classes to DB tables*/
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
-/* Lombok annotations like @Getter, @Setter reduce boilerplate ,, jsut for us :)
-* ----
-* We're using Jakarta's JPA to map Java classes to relational database tables.
-* Lombok simplifies our code by auto-generating getters, setters, and constructors.
-* */
 
-@Entity // defines that this class will be a table in the DB
-@Table(name = "users") // specifies exact table name in the DB
+/**
+ * User entity represents a registered user of the application.
+ * Includes personal information, credentials, and relationships
+ * to posts, comments, and likes made by the user.
+ *
+ * Fields:
+ *   - id              : Unique identifier for the user
+ *   - name            : User's full name
+ *   - password        : User's encrypted password (used only internally)
+ *   - email           : Email address (used for login and identification)
+ *   - bio             : Short biography or profile description
+ *   - profilePicture  : URL to the user's profile image
+ *   - isAdmin         : Flag indicating whether the user has administrative privileges
+ *   - loginCount      : Number of times the user has logged in (starts at 1)
+ *   - posts           : List of posts authored by this user
+ *   - comments        : List of comments authored by this user
+ *   - likes           : List of likes made by this user
+ */
 @Getter
-@Setter // auto-gen get/ set methods  ... just to make our work easy like we did test 1 and 2
-@NoArgsConstructor // for object creation
-@AllArgsConstructor //for object creation
-@Builder // allows .builder() style object creation
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // we are keeping the name as a single string for now.
-    @Column(nullable = false)
-    private String name; // full name (e.g., "Tarun Chauhan"
-
-    @Column(unique = true, nullable = false)
-    private String email;
-
-    @Column(nullable = false)
+    private String name;
     private String password;
-
-    @Column(name = "profile_picture", columnDefinition = "TEXT")
-    private String profilePicture;
-
-    @Column(length = 500)
+    private String email;
     private String bio;
-
+    private String profilePicture;
     private boolean isAdmin;
 
-    // for the profile page
-    @Column(name = "login_count")
-    private Integer loginCount=0;
+    private Integer loginCount = 1;
 
-    // posts get inside the profile bio
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Post> posts = new ArrayList<>();
+    /**
+     * One-to-many relationship with Post.
+     * Represents all posts created by this user.
+     * Cascade operations and orphan removal are enabled.
+     */
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts;
+
+    /**
+     * One-to-many relationship with Comment.
+     * Represents all comments made by this user.
+     * Cascade operations and orphan removal are enabled.
+     */
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+
+    /**
+     * One-to-many relationship with Like.
+     * Represents all likes made by this user.
+     * Cascade operations and orphan removal are enabled.
+     */
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likes;
 }
-
-/*
-* For each user, we want to:
-
-Display basic info: name, email, bio, profile picture, isAdmin
-
-Show all posts made by that user (like Instagram grid)
-
-Track number of times the user logged in (Login streak count)
-* */

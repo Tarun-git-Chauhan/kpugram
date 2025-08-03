@@ -2,8 +2,23 @@ package com.kpugram.test3.dto;
 
 import lombok.Builder;
 import lombok.Data;
-// this is the format backend want to send to the frontend
-// it helps us to the backend logic
+
+/**
+ * FeedDTO is a Data Transfer Object used to structure post data for the frontend feed.
+ * It includes both anonymous and non-anonymous posts.
+ *
+ * This format ensures that only the necessary information is sent to the frontend,
+ * helping maintain privacy for anonymous posts and reducing payload size.
+ *
+ * Fields:
+ *   - id             : Unique identifier of the post
+ *   - content        : The textual content of the post
+ *   - imageUrl       : Optional image URL associated with the post
+ *   - anonymous      : Flag indicating if the post is anonymous
+ *   - createdAt      : Timestamp when the post was created
+ *   - username       : Username of the poster (null if anonymous)
+ *   - profilePicture : Profile image URL of the poster (null if anonymous)
+ */
 @Data
 @Builder
 public class FeedDTO {
@@ -13,8 +28,7 @@ public class FeedDTO {
     private boolean anonymous;
     private String createdAt;
 
-    // show only if not Anonymous
+    // These fields are included only when the post is not anonymous
     private String username;
     private String profilePicture;
-    // if the post is anonymous then we will only return the niull
 }

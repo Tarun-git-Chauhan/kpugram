@@ -4,20 +4,34 @@ import com.kpugram.test3.models.Comment;
 import com.kpugram.test3.models.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-
-/*JpaRepository gives us built-in DB methods: save(), findAll(), deleteById(),
- etc.
-
-findByPostId is a custom method: Spring auto-generates the SQL based on method name.
-
-It finds all comments where comment.post.id == postId.
-
-
-* */
 import java.util.List;
 
-public interface CommentRepository extends JpaRepository<Comment, Integer>{
+/**
+ * CommentRepository provides database access methods for the Comment entity.
+ * It extends JpaRepository to inherit common CRUD operations such as:
+ *   - save()
+ *   - findAll()
+ *   - findById()
+ *   - deleteById()
+ *
+ * Additionally, it includes custom methods for application-specific use cases.
+ */
+public interface CommentRepository extends JpaRepository<Comment, Integer> {
+
+    /**
+     * Finds all comments associated with a specific post.
+     * Spring Data JPA automatically implements this based on method name.
+     *
+     * @param postId ID of the post
+     * @return List of Comment entities related to the given post
+     */
     List<Comment> findByPostId(Integer postId);
+
+    /**
+     * Deletes all comments associated with a specific post.
+     * This is useful when a post is deleted and its comments must also be removed.
+     *
+     * @param post The Post entity whose comments should be deleted
+     */
     void deleteAllByPost(Post post);
-// to delete the comments from the post when anyone delete the post
 }

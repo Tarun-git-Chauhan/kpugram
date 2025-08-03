@@ -11,13 +11,15 @@ import java.util.Optional;
 
 /**
  * AuthController handles user registration and login endpoints.
- * Routes:
- *  - POST /api/auth/register
- *  - POST /api/auth/login
+ * It defines routes for creating a new user and validating login credentials.
  *
+ * Base Route:
+ *   /api/auth
  *
+ * Endpoints:
+ *   - POST /register : Registers a new user
+ *   - POST /login    : Authenticates existing users
  */
-
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -25,7 +27,13 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    // Register endpoint
+    /**
+     * Registers a new user in the system.
+     * Before creating the user, it checks if an account with the same email already exists.
+     *
+     * @param user The user object containing registration details
+     * @return HTTP response indicating success or failure with relevant message or UserDTO
+     */
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
         Optional<User> existingUser = userService.login(user.getEmail(), user.getPassword());
@@ -39,7 +47,13 @@ public class AuthController {
         return ResponseEntity.ok(registeredUser);
     }
 
-    // Login endpoint
+    /**
+     * Authenticates a user using the provided email and password.
+     * Returns a UserDTO on successful login, or an error response if credentials are invalid.
+     *
+     * @param loginRequest The login request object containing email and password
+     * @return HTTP response containing UserDTO or error message
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User loginRequest) {
         Optional<User> user = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
@@ -54,31 +68,25 @@ public class AuthController {
 }
 
 /*
-this is the manual while testing for this AuthController.java
+Manual Testing Guide for AuthController:
 
-Register User:
-    Endpoint: POST /api/auth/register
-    Body (JSON -> raw ->application.json):
-        {
-            "name" : "username",
-            "email": "userEmail",
-            "password": "userPassword_Creating",
-            "profilePicture": "https://example.com/profile.jpg"
-        }
+1. Register User:
+   - Endpoint: POST /api/auth/register
+   - Body (application/json):
+     {
+         "name" : "username",
+         "email": "userEmail",
+         "password": "userPassword_Creating",
+         "profilePicture": "https://example.com/profile.jpg"
+     }
+   - Description: Creates a new user and stores the record in the database.
 
-        // this will create the new user account in the database
-
-Login User:
-    Endpoint: POST /api/auth/login
-    Body (JSON ):
-        {
-            "email": "userEmail_Registered",
-            "password": "userPassword"
-        }
-
-        // this will help the user to login it in to the application and go to the Home page of
-        // theit KPUGRAM+
-
-
-* */
-
+2. Login User:
+   - Endpoint: POST /api/auth/login
+   - Body (application/json):
+     {
+         "email": "userEmail_Registered",
+         "password": "userPassword"
+     }
+   - Description: Validates user credentials and returns user information upon successful login.
+*/

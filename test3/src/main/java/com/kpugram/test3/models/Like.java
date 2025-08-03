@@ -1,52 +1,46 @@
 package com.kpugram.test3.models;
 
 import jakarta.persistence.*;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-/*
-Like.java	-> Entity for storing who liked which post
-LikeDTO.java	-> For safe display
-LikeRepository.java -> 	To interact with DB
-LikeService.java	-> Business logic
-LikeController.java	-> API endpoints to like, get likes, count likes
-SecurityConfig.java	-> Add permission for /api/likes/**
-*/
-@Entity
-@Data
-@NoArgsConstructor // for faster object creation
+/**
+ * Like entity represents a "like" action performed by a user on a post.
+ * Each entry maps a user to a post, indicating that the user liked the post.
+ * Stored in the "likes" table.
+ *
+ * Fields:
+ *   - id    : Unique identifier for the like (auto-generated)
+ *   - user  : The user who liked the post
+ *   - post  : The post that was liked
+ */
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-@Builder // this helpo to auto-generate the setters and getters and builder pattern from Lombok
-@Table(name = "likes",
-        uniqueConstraints = { // this will help to stop the user from liking the same post twice
-        @UniqueConstraint(columnNames = {"user_id", "post_id"})
-})
-
+@Builder
+@Entity
+@Table(name = "likes")
 public class Like {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    /**
+     * Many-to-one relationship to User.
+     * Indicates which user performed the like.
+     * Mapped via "user_id" foreign key.
+     */
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    /**
+     * Many-to-one relationship to Post.
+     * Indicates which post was liked.
+     * Mapped via "post_id" foreign key.
+     */
     @ManyToOne
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 }
-
-/*
-to like the post we can use this format of the api
-
-http://localhost:8080/api/likes/like?userId=1&postId=1
-
-i tried into the postman and it works :)
-
-*
-* */
-

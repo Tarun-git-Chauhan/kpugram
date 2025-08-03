@@ -13,6 +13,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * LikeService manages the business logic for liking posts,
+ * retrieving like details, and counting likes.
+ */
 @Service
 public class LikeService {
 
@@ -25,6 +29,13 @@ public class LikeService {
     @Autowired
     private PostRepository postRepo;
 
+    /**
+     * Allows a user to like a post if they haven't already.
+     *
+     * @param userId ID of the user performing the like
+     * @param postId ID of the post being liked
+     * @return A status message indicating the result
+     */
     public String likePost(Integer userId, Integer postId) {
         // Check if already liked
         if (likeRepo.findByUserIdAndPostId(userId, postId).isPresent()) {
@@ -44,6 +55,13 @@ public class LikeService {
         return "Post liked successfully!";
     }
 
+    /**
+     * Retrieves a list of all users who liked a given post.
+     * Each entry is returned as a LikeDTO with basic user info.
+     *
+     * @param postId ID of the post
+     * @return List of LikeDTOs
+     */
     public List<LikeDTO> getLikesForPost(Integer postId) {
         return likeRepo.findByPostId(postId).stream().map(like -> LikeDTO.builder()
                 .id(like.getId())
@@ -53,18 +71,22 @@ public class LikeService {
         ).collect(Collectors.toList());
     }
 
+    /**
+     * Counts the total number of likes on a post.
+     * Useful for displaying a like counter on the UI.
+     *
+     * @param postId ID of the post
+     * @return Total number of likes
+     */
     public Long getLikeCount(Integer postId) {
         return likeRepo.countByPostId(postId);
     }
 }
 
+/*
+Summary of Public Methods:
 
-/*likePost()	    ->Checks if user already liked the post → if not, saves the like
-getLikesForPost()	->Returns a list of LikeDTOs with usernames and profile pictures
-getLikeCount()	    ->Just counts how many people liked the post (used in UI as a counter)
-
-
-
-
-
-* */
+- likePost()         → Checks if user already liked the post; if not, saves the like
+- getLikesForPost()  → Returns a list of LikeDTOs (username and profile picture)
+- getLikeCount()     → Returns the total like count for a given post
+*/

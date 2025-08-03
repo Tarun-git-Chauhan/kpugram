@@ -1,39 +1,53 @@
 package com.kpugram.test3.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Data
+/**
+ * Comment entity represents a comment made by a user on a post.
+ * It is stored in the "comments" table and linked to both the user and the post entities.
+ *
+ * Fields:
+ *   - id         : Unique identifier for the comment (auto-generated)
+ *   - content    : Text content of the comment
+ *   - createdAt  : Timestamp when the comment was created
+ *   - post       : The post to which this comment belongs
+ *   - user       : The user who authored the comment
+ */
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
+@Table(name = "comments")
 public class Comment {
-    //	This marks id as the primary key and lets the DB auto-increment it.
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String content;
+
     private LocalDateTime createdAt;
 
-    // 	A user can have many comments, but each comment belongs to one user.
+    /**
+     * Many-to-one relationship between Comment and Post.
+     * A post can have many comments.
+     * This defines the foreign key "post_id" in the comments table.
+     */
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    //A post can have many comments, but each comment is linked to one post.
-    @ManyToOne
-    @JoinColumn(name = "post_id")
-    @OnDelete(action = OnDeleteAction.CASCADE) // this line is important while deleting the post it will delete the comments as well
+    @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
-//    This creates a foreign key column in the comment table pointing to user. Same for post_id
+    /**
+     * Many-to-one relationship between Comment and User.
+     * A user can write many comments.
+     * This defines the foreign key "user_id" in the comments table.
+     */
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }
