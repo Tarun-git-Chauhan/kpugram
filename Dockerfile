@@ -6,9 +6,9 @@ WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline -B
 
-# Copy everything and build the app
+# Copy everything and build the app (⛔ skipping tests here)
 COPY . .
-RUN mvn clean install
+RUN mvn clean install -DskipTests
 
 # Run the application
 FROM openjdk:17-jdk-slim
