@@ -21,7 +21,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Applies CORS configuration to all API endpoints
-                        .allowedOrigins("http://localhost:63342") // Allows frontend served from this origin (e.g., Live Server)
+                        .allowedOrigins("https://kpugram.netlify.app") // Allows frontend served from this origin (e.g., Live Server)
                         .allowedMethods("GET", "POST", "PUT", "DELETE") // Specifies allowed HTTP methods
                         .allowedHeaders("*") // Allows all request headers
                         .allowCredentials(true); // Allows sending of credentials such as cookies
