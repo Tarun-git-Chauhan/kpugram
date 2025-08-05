@@ -26,6 +26,12 @@ public class WebConfig {
                         .allowedHeaders("*") // Allows all request headers
                         .allowCredentials(true); // Allows sending of credentials such as cookies
             }
+             // ✅ This part will allow serving files from /Images/** URL
+            @Override
+            public void addResourceHandlers(ResourceHandlerRegistry registry) {
+                registry.addResourceHandler("/Images/**")
+                        .addResourceLocations("file:Images/");
+            }
 
         };
     }
