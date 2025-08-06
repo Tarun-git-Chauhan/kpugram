@@ -31,4 +31,5 @@ public class FeedDTO {
     // These fields are included only when the post is not anonymous
     private String username;
     private String profilePicture;
+    private Long likes; // new update where i added the the like count for the feed.
 }
