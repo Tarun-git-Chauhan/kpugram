@@ -67,6 +67,7 @@ public class PostService {
                 .createdAt(savedPost.getCreatedAt().toString())
                 .username(savedPost.isAnonymous() ? "Anonymous Post" : user.getName())
                 .profilePicture(savedPost.isAnonymous() ? "Anonymous Post" : user.getProfilePicture())
+
                 .build();
     }
 
@@ -88,6 +89,8 @@ public class PostService {
                 .username(post.isAnonymous() ? null : post.getUser().getName())
                 .profilePicture(post.isAnonymous() ? null : post.getUser().getProfilePicture())
                 .likeCount(likeRepository.countByPostId(post.getId())) // this one for the likes
+                .userId(post.isAnonymous() ? null : post.getUser().getId())
+
                 .build()).collect(Collectors.toList());
     }
 

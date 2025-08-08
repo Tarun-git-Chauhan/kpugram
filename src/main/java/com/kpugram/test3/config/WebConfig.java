@@ -29,8 +29,8 @@ public class WebConfig {
              // ✅ This part will allow serving files from /Images/** URL
             @Override
             public void addResourceHandlers(ResourceHandlerRegistry registry) {
-                registry.addResourceHandler("/Images/**")
-                        .addResourceLocations("file:Images/");
+                registry.addResourceHandler("/images/**")
+                        .addResourceLocations("file:/opt/render/project/src/images/");
             }
 
         };

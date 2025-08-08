@@ -32,4 +32,5 @@ public class FeedDTO {
     private String username;
     private String profilePicture;
     private Long likeCount; // new update where i added the the like count for the feed.
+    private Integer userId;
 }
