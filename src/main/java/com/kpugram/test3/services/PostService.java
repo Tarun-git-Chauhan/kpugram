@@ -10,6 +10,7 @@ import com.kpugram.test3.repositories.PostRepository;
 import com.kpugram.test3.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -171,7 +172,7 @@ public class PostService {
      * @param file      Optional image file
      * @param anonymous Flag to mark the post as anonymous
      */
-    public void createPostWithImage(Integer userId, String content, MultipartFile file, boolean anonymous) {
+    /*public void createPostWithImage(Integer userId, String content, MultipartFile file, boolean anonymous) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -190,6 +191,38 @@ public class PostService {
                 post.setImageUrl("/Images/" + filename);
             } catch (IOException e) {
                 throw new RuntimeException("Failed to save image");
+            }
+        }
+
+        postRepository.save(post);
+    }*/
+@Value("${app.upload.dir:/opt/render/project/src/images/}")
+    private String uploadRoot;
+    public void createPostWithImage(Integer userId, String content, MultipartFile file, boolean anonymous) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Post post = new Post();
+        post.setContent(content);
+        post.setAnonymous(anonymous);
+        post.setUser(anonymous ? null : user); // don't link user if anonymous
+        post.setCreatedAt(LocalDateTime.now());
+
+        if (file != null && !file.isEmpty()) {
+            try {
+                // ensure folder exists (works on free plan)
+                Files.createDirectories(Path.of(uploadRoot));
+
+                String safeName = System.currentTimeMillis() + "_" +
+                        file.getOriginalFilename().replaceAll("\\s+", "_");
+
+                Path dest = Path.of(uploadRoot, safeName);
+                Files.copy(file.getInputStream(), dest); // REPLACE_EXISTING optional
+
+                // store relative URL; frontend prefixes with BASE_URL
+                post.setImageUrl("/images/" + safeName);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to save image", e);
             }
         }
 
