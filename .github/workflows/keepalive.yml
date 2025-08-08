@@ -3,13 +3,18 @@ name: Keep Render Alive
 on:
   schedule:
     - cron: "*/10 * * * *"  # Runs every 10 minutes
-  workflow_dispatch:         # Allow manual runs from GitHub Actions tab
+  workflow_dispatch:         # Allow manual trigger from GitHub Actions tab
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Render backend
+      - name: Ping backend root
         run: |
-          echo "Pinging backend at $(date)"
-          curl -s https://kpugram-backend.onrender.com/actuator/health || echo "Ping failed"
+          echo "Pinging backend root at $(date)"
+          curl -s https://kpugram-backend.onrender.com/ || echo "Root ping failed"
+
+      - name: Ping feed endpoint
+        run: |
+          echo "Pinging feed endpoint at $(date)"
+          curl -s https://kpugram-backend.onrender.com/api/posts/feed || echo "Feed ping failed"
