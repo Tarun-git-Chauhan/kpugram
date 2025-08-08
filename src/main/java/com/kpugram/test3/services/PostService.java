@@ -150,7 +150,7 @@ public class PostService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (post.getUser() != null && (post.getUser().getId().equals(userId) || user.isAdmin())) {
+        if ((post.getUser() != null && post.getUser().getId().equals(userId) )|| user.isAdmin()) {
             commentRepository.deleteAllByPost(post);
             postRepository.delete(post);
             return "Post and its comments deleted successfully.";
