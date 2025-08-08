@@ -184,10 +184,10 @@ public class PostService {
         if (file != null && !file.isEmpty()) {
             try {
                 String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-                Path path = Paths.get("test3/target/classes/static/images/" + filename);
+                Path path = Paths.get("src/main/resources/static/Images/" + filename);
                 Files.createDirectories(path.getParent());
                 Files.write(path, file.getBytes());
-                post.setImageUrl("/images/" + filename);
+                post.setImageUrl("/Images/" + filename);
             } catch (IOException e) {
                 throw new RuntimeException("Failed to save image");
             }
