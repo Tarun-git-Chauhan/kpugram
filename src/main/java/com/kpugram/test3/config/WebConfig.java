@@ -22,17 +22,16 @@ public class WebConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Applies CORS configuration to all API endpoints
                         .allowedOrigins("https://kpugram.netlify.app") // Allows frontend served from this origin (e.g., Live Server)
-                        .allowedMethods("GET", "POST", "PUT", "DELETE") // Specifies allowed HTTP methods
+                        .allowedMethods("GET", "POST", "PUT", "DELETE","OPTIONS") // Specifies allowed HTTP methods
                         .allowedHeaders("*") // Allows all request headers
                         .allowCredentials(true); // Allows sending of credentials such as cookies
             }
              // ✅ This part will allow serving files from /Images/** URL
             @Override
             public void addResourceHandlers(ResourceHandlerRegistry registry) {
-                registry.addResourceHandler("/Images/**")
-                        .addResourceLocations("file:/opt/render/project/src/Images/");
+                registry.addResourceHandler("/images/**")
+                        .addResourceLocations("file:/opt/render/project/src/images/");
             }
-
         };
     }
 }
