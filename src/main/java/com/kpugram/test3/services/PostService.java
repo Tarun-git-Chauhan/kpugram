@@ -5,6 +5,7 @@ import com.kpugram.test3.dto.PostDTO;
 import com.kpugram.test3.models.Post;
 import com.kpugram.test3.models.User;
 import com.kpugram.test3.repositories.CommentRepository;
+import com.kpugram.test3.repositories.LikeRepository;
 import com.kpugram.test3.repositories.PostRepository;
 import com.kpugram.test3.repositories.UserRepository;
 import jakarta.transaction.Transactional;
@@ -37,6 +38,10 @@ public class PostService {
 
     @Autowired
     private CommentRepository commentRepository;
+
+    // new commit to make the like counter works:
+    @Autowired
+    private LikeRepository likeRepository;
 
     /**
      * Creates a new post and associates it with a user.
@@ -82,6 +87,7 @@ public class PostService {
                 .createdAt(post.getCreatedAt().toString())
                 .username(post.isAnonymous() ? null : post.getUser().getName())
                 .profilePicture(post.isAnonymous() ? null : post.getUser().getProfilePicture())
+                .likeCount(likeRepository.countByPostId(post.getId())) // this one for the likes
                 .build()).collect(Collectors.toList());
     }
 
@@ -155,7 +161,7 @@ public class PostService {
 
     /**
      * Creates a new post with optional image upload.
-     * The image is saved to the server and the path is stored in the database.
+     * The image is saved to the server and the paths are stored in the database.
      *
      * @param userId    ID of the user creating the post
      * @param content   Content of the post
