@@ -1,8 +1,8 @@
 name: Keep Render Alive
 
 on:
-  schedule:
-    - cron: "*/10 * * * *"  # Runs every 10 minutes
+  # schedule:
+  #   - cron: "*/10 * * * *"  # Runs every 10 minutes i changed it because i bought the paid version
   workflow_dispatch:         # Allow manual trigger from GitHub Actions tab
 
 jobs:
